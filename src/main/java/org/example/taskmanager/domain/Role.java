@@ -1,18 +1,40 @@
 package org.example.taskmanager.domain;
 
-
-import java.util.List;
+import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import java.util.Objects;
 import java.util.Set;
 
-
+@Entity
+@Table(name = "role")
 public class Role {
 
-    private RoleName role;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
+    @Column(name = "name")
+    private String name;
+
+    @OneToMany(mappedBy = "role")
     private Set<User> users;
 
     public Role(){ }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Role id(Long id){
+        this.id = id;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public Set<User> getUsers() {
         return users;
@@ -27,23 +49,24 @@ public class Role {
         this.users = users;
     }
 
-    public RoleName getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public Role role(RoleName role) {
-        this.role = role;
+    public Role name(String name) {
+        this.name = name;
         return this;
     }
 
-    public void setRole(RoleName role) {
-        this.role = role;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Role{" +
-                "role=" + role +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", users=" + users +
                 '}';
     }
@@ -52,12 +75,14 @@ public class Role {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Role role1 = (Role) o;
-        return Objects.equals(role, role1.role) && Objects.equals(users, role1.users);
+        Role role = (Role) o;
+        return Objects.equals(id, role.id) &&
+                Objects.equals(name, role.name) &&
+                Objects.equals(users, role.users);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(role, users);
+        return Objects.hash(id, name, users);
     }
 }
