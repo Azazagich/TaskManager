@@ -1,28 +1,70 @@
 package org.example.taskmanager.domain;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "task")
 public class Task {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "body")
     private String body;
 
+    @Column(name = "startDate")
     private LocalDateTime startDate;
 
+    @Column(name = "finishDate")
     private LocalDateTime finishDate;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "status_id")
     private Status status;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "createBy_id")
     private User createBy;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_tasks",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private Set<User> performers;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "tasks_tags",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private Set<Tag> tags;
 
     public Task() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public Task id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -131,7 +173,8 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
                 ", startDate=" + startDate +
                 ", finishDate=" + finishDate +
@@ -147,7 +190,8 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return Objects.equals(title, task.title) &&
+        return Objects.equals(id, task.id) &&
+                Objects.equals(title, task.title) &&
                 Objects.equals(body, task.body) &&
                 Objects.equals(startDate, task.startDate) &&
                 Objects.equals(finishDate, task.finishDate) &&
@@ -159,8 +203,6 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, body, startDate, finishDate, status, createBy, performers, tags);
+        return Objects.hash(id, title, body, startDate, finishDate, status, createBy, performers, tags);
     }
-
-
 }
