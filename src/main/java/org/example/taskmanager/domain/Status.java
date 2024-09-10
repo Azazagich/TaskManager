@@ -1,17 +1,40 @@
 package org.example.taskmanager.domain;
 
-import java.util.List;
+import jakarta.persistence.*;
+
+
 import java.util.Objects;
 import java.util.Set;
 
-
+@Entity
+@Table(name = "status")
 public class Status {
 
-    private StatusName status;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
+    @Column(name = "name")
+    private String name;
+
+    @OneToMany(mappedBy = "status")
     private Set<Task> tasks;
 
     public Status(){ }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Status id(Long id){
+        this.id = id;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public Set<Task> getTasks() {
         return tasks;
@@ -26,23 +49,24 @@ public class Status {
         this.tasks = tasks;
     }
 
-    public StatusName getStatus() {
-        return status;
+    public String getName() {
+        return name;
     }
 
-    public Status status(StatusName status){
-        this.status = status;
+    public Status status(String name){
+        this.name = name;
         return this;
     }
 
-    public void setStatus(StatusName status) {
-        this.status = status;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Status{" +
-                "status=" + status +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", tasks=" + tasks +
                 '}';
     }
@@ -51,12 +75,14 @@ public class Status {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Status status1 = (Status) o;
-        return Objects.equals(status, status1.status) && Objects.equals(tasks, status1.tasks);
+        Status status = (Status) o;
+        return Objects.equals(id, status.id) &&
+                Objects.equals(name, status.name) &&
+                Objects.equals(tasks, status.tasks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(status, tasks);
+        return Objects.hash(id, name, tasks);
     }
 }
