@@ -1,15 +1,39 @@
 package org.example.taskmanager.domain;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "tag")
 public class Tag {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "name")
     private String name;
 
+    @ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL)
     private Set<Task> tasks;
 
     public Tag(){ }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Tag id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -40,7 +64,8 @@ public class Tag {
     @Override
     public String toString() {
         return "Tag{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", tasks=" + tasks +
                 '}';
     }
@@ -50,11 +75,11 @@ public class Tag {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tag tag = (Tag) o;
-        return Objects.equals(name, tag.name) && Objects.equals(tasks, tag.tasks);
+        return Objects.equals(id, tag.id) && Objects.equals(name, tag.name) && Objects.equals(tasks, tag.tasks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, tasks);
+        return Objects.hash(id, name, tasks);
     }
 }
