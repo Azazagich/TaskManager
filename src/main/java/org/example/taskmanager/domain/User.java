@@ -1,23 +1,56 @@
 package org.example.taskmanager.domain;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long Id;
+
+    @Column(name = "firstName")
     private String firstName;
 
+    @Column(name = "lastName")
     private String lastName;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
     private String password;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "roleId")
     private Role role;
 
+    @OneToMany(mappedBy = "createBy")
+    private Set<Task> created_tasks;
+
+    @ManyToMany(mappedBy = "performers")
     private Set<Task> tasks;
 
+
     public User(){ }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public User id(Long id){
+        this.Id = id;
+        return this;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -43,6 +76,19 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Set<Task> getCreated_tasks() {
+        return created_tasks;
+    }
+
+    public User created_tasks(Set<Task> created_tasks) {
+        this.created_tasks = created_tasks;
+        return this;
+    }
+
+    public void setCreated_tasks(Set<Task> created_tasks) {
+        this.created_tasks = created_tasks;
     }
 
     public String getEmail() {
@@ -100,26 +146,27 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "firstName='" + firstName + '\'' +
+                "Id=" + Id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", created_tasks=" + created_tasks +
                 ", tasks=" + tasks +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(tasks, user.tasks);
+        return Objects.equals(Id, user.Id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(created_tasks, user.created_tasks) && Objects.equals(tasks, user.tasks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email, password, role, tasks);
+        return Objects.hash(Id, firstName, lastName, email, password, role, created_tasks, tasks);
     }
 }
