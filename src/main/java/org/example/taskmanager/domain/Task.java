@@ -1,7 +1,6 @@
 package org.example.taskmanager.domain;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;

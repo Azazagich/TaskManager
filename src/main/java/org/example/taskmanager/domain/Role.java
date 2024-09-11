@@ -2,6 +2,7 @@ package org.example.taskmanager.domain;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
+
 import java.util.Objects;
 import java.util.Set;
 
