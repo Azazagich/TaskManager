@@ -1,10 +1,5 @@
 package org.example.taskmanager.service.dto;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToMany;
-import org.example.taskmanager.domain.Task;
-
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
@@ -15,7 +10,7 @@ public class TagDTO implements Serializable {
 
     private String name;
 
-    private Set<Task> tasks;
+    private Set<TaskDTO> tasks;
 
     public Long getId() {
         return id;
@@ -33,11 +28,11 @@ public class TagDTO implements Serializable {
         this.name = name;
     }
 
-    public Set<Task> getTasks() {
+    public Set<TaskDTO> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<Task> tasks) {
+    public void setTasks(Set<TaskDTO> tasks) {
         this.tasks = tasks;
     }
 
