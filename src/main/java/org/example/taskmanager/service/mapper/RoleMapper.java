@@ -14,13 +14,13 @@ import java.util.Optional;
 @Mapper
 public interface RoleMapper {
 
-    RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
-
     Role toRole(RoleDTO roleDTO);
 
     List<Role> toRoles(List<RoleDTO> rolesDTO);
 
     RoleDTO toRoleDTO(Role role);
+
+    Optional<RoleDTO> toRoleDTO(Optional<Role> role);
 
     List<RoleDTO> toRoleDTOS(List<Role> roles);
 }
