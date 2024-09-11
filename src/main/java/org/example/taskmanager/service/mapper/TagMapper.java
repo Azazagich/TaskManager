@@ -8,17 +8,18 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface TagMapper {
 
-    TagMapper INSTANCE = Mappers.getMapper(TagMapper.class);
-
     Tag toTag(TagDTO tagDTO);
+
+    List<Tag> toTags(List<TagDTO> tagDTO);
 
     TagDTO toTagDTO(Tag tag);
 
-    List<TagDTO> toTagsDTOS(List<Tag> tags);
+    Optional<TagDTO> toTagDTO(Optional<Tag> tag);
 
-    List<Tag> toTags(List<TagDTO> tagDTO);
+    List<TagDTO> toTagsDTOS(List<Tag> tags);
 }
