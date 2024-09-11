@@ -1,8 +1,5 @@
 package org.example.taskmanager.service.dto;
 
-import jakarta.persistence.*;
-import org.example.taskmanager.domain.Task;
-
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
@@ -13,7 +10,7 @@ public class StatusDTO implements Serializable {
 
     private String name;
 
-    private Set<Task> tasks;
+    private Set<TaskDTO> tasks;
 
 
     public Long getId() {
@@ -24,20 +21,20 @@ public class StatusDTO implements Serializable {
         this.id = id;
     }
 
-    public Set<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<TaskDTO> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<TaskDTO> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
