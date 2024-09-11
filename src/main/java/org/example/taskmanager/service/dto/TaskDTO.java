@@ -1,10 +1,5 @@
 package org.example.taskmanager.service.dto;
 
-import jakarta.persistence.*;
-import org.example.taskmanager.domain.Status;
-import org.example.taskmanager.domain.Tag;
-import org.example.taskmanager.domain.User;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -21,13 +16,13 @@ public class TaskDTO implements Serializable {
 
     private LocalDateTime finishDate;
 
-    private Status status;
+    private StatusDTO status;
 
-    private User createBy;
+    private UserDTO createBy;
 
-    private Set<User> performers;
+    private Set<UserDTO> performers;
 
-    private Set<Tag> tags;
+    private Set<TagDTO> tags;
 
 
     public Long getId() {
@@ -70,35 +65,35 @@ public class TaskDTO implements Serializable {
         this.finishDate = finishDate;
     }
 
-    public Status getStatus() {
+    public StatusDTO getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(StatusDTO status) {
         this.status = status;
     }
 
-    public User getCreateBy() {
+    public UserDTO getCreateBy() {
         return createBy;
     }
 
-    public void setCreateBy(User createBy) {
+    public void setCreateBy(UserDTO createBy) {
         this.createBy = createBy;
     }
 
-    public Set<User> getPerformers() {
+    public Set<UserDTO> getPerformers() {
         return performers;
     }
 
-    public void setPerformers(Set<User> performers) {
+    public void setPerformers(Set<UserDTO> performers) {
         this.performers = performers;
     }
 
-    public Set<Tag> getTags() {
+    public Set<TagDTO> getTags() {
         return tags;
     }
 
-    public void setTags(Set<Tag> tags) {
+    public void setTags(Set<TagDTO> tags) {
         this.tags = tags;
     }
 
