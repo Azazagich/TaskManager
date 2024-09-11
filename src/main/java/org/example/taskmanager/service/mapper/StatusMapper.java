@@ -11,13 +11,13 @@ import java.util.Optional;
 @Mapper
 public interface StatusMapper {
 
-    StatusMapper INSTANCE = Mappers.getMapper(StatusMapper.class);
-
     Status toStatus(StatusDTO statusDTO);
+
+    List<Status> toStatus(List<StatusDTO> statusesDTO);
 
     StatusDTO toStatusDTO(Status status);
 
-    List<StatusDTO> toStatusDTOS(List<Status> status);
+    Optional<StatusDTO> toStatusDTO(Optional<Status> status);
 
-    List<Status> toStatus(List<StatusDTO> statusesDTO);
+    List<StatusDTO> toStatusDTOS(List<Status> status);
 }
