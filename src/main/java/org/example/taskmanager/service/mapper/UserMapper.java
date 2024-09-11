@@ -7,16 +7,17 @@ import org.example.taskmanager.service.dto.UserDTO;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserMapper {
 
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
     User toUser(UserDTO userDTO);
+
+    List<UserDTO> toUserDTOS(List<User> user);
 
     UserDTO toUserDTO(User user);
 
-    List<UserDTO> toUserDTOS(List<User> user);
+    Optional<UserDTO> toUserDTO(Optional<User> user);
 
     List<User> toUsers(List<UserDTO> userDTOS);
 }
