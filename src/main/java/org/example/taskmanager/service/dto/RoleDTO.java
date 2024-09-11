@@ -1,9 +1,5 @@
 package org.example.taskmanager.service.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
-import org.example.taskmanager.domain.User;
-
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
@@ -14,7 +10,7 @@ public class RoleDTO implements Serializable {
 
     private String name;
 
-    private Set<User> users;
+    private Set<UserDTO> users;
 
     public Long getId() {
         return id;
@@ -32,11 +28,11 @@ public class RoleDTO implements Serializable {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
+    public Set<UserDTO> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(Set<UserDTO> users) {
         this.users = users;
     }
 
