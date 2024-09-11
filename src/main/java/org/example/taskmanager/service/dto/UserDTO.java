@@ -20,11 +20,11 @@ public class UserDTO implements Serializable {
 
     private String password;
 
-    private Role role;
+    private RoleDTO role;
 
-    private Set<Task> created_tasks;
+    private Set<TaskDTO> created_tasks;
 
-    private Set<Task> tasks;
+    private Set<TaskDTO> tasks;
 
 
     public Long getId() {
@@ -67,27 +67,27 @@ public class UserDTO implements Serializable {
         this.password = password;
     }
 
-    public Role getRole() {
+    public RoleDTO getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(RoleDTO role) {
         this.role = role;
     }
 
-    public Set<Task> getCreated_tasks() {
+    public Set<TaskDTO> getCreated_tasks() {
         return created_tasks;
     }
 
-    public void setCreated_tasks(Set<Task> created_tasks) {
+    public void setCreated_tasks(Set<TaskDTO> created_tasks) {
         this.created_tasks = created_tasks;
     }
 
-    public Set<Task> getTasks() {
+    public Set<TaskDTO> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<Task> tasks) {
+    public void setTasks(Set<TaskDTO> tasks) {
         this.tasks = tasks;
     }
 
