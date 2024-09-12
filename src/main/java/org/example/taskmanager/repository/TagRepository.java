@@ -2,5 +2,7 @@ package org.example.taskmanager.repository;
 
 import org.example.taskmanager.domain.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TagRepository extends JpaRepository<Tag, Long> { }
