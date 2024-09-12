@@ -1,7 +1,5 @@
 package org.example.taskmanager.service;
 
-import org.example.taskmanager.domain.Role;
-
 import java.util.List;
 
 public interface CrudService<DTO, ID extends Long> {
@@ -12,9 +10,9 @@ public interface CrudService<DTO, ID extends Long> {
 
     DTO save(DTO dto);
 
-    boolean updateAll(List<DTO> dtos);
+    boolean updateAll(DTO dtos);
 
-    boolean update(ID id, DTO dto);
+    boolean update(DTO dto);
 
     void deleteById(ID id);
 }
