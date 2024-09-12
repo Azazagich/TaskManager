@@ -1,26 +1,15 @@
 package org.example.taskmanager.service.mapper;
 
-import org.example.taskmanager.domain.Role;
-import org.example.taskmanager.domain.Status;
 import org.example.taskmanager.service.dto.RoleDTO;
-import org.example.taskmanager.service.dto.StatusDTO;
-import org.example.taskmanager.service.dto.UserDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
-
-import java.util.List;
-import java.util.Optional;
+import org.example.taskmanager.domain.Role;
+import org.mapstruct.*;
 
 @Mapper
-public interface RoleMapper {
+public interface RoleMapper extends MapperEntity<Role, RoleDTO>{
 
-    Role toRole(RoleDTO roleDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void partialUpdate(RoleDTO dto, @MappingTarget Role entity);
 
-    List<Role> toRoles(List<RoleDTO> rolesDTO);
-
-    RoleDTO toRoleDTO(Role role);
-
-    Optional<RoleDTO> toRoleDTO(Optional<Role> role);
-
-    List<RoleDTO> toRoleDTOS(List<Role> roles);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL)
+    void fullUpdate(RoleDTO dto, @MappingTarget Role entity);
 }
