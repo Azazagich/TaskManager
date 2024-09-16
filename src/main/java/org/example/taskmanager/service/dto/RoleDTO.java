@@ -1,6 +1,7 @@
 package org.example.taskmanager.service.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,7 +11,9 @@ public class RoleDTO implements Serializable {
 
     private String name;
 
-    private Set<UserDTO> users;
+    private Set<UserDTO> users = new HashSet<>();
+
+    public RoleDTO() { }
 
     public Long getId() {
         return id;
@@ -50,7 +53,9 @@ public class RoleDTO implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoleDTO roleDTO = (RoleDTO) o;
-        return Objects.equals(id, roleDTO.id) && Objects.equals(name, roleDTO.name) && Objects.equals(users, roleDTO.users);
+        return Objects.equals(id, roleDTO.id) &&
+                Objects.equals(name, roleDTO.name) &&
+                Objects.equals(users, roleDTO.users);
     }
 
     @Override
