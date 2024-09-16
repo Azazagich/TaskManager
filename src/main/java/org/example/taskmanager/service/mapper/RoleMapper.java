@@ -1,10 +1,11 @@
 package org.example.taskmanager.service.mapper;
 
-import org.example.taskmanager.service.dto.RoleDTO;
 import org.example.taskmanager.domain.Role;
+import org.example.taskmanager.service.dto.RoleDTO;
 import org.mapstruct.*;
+import org.springframework.stereotype.Service;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface RoleMapper extends MapperEntity<Role, RoleDTO>{
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
