@@ -18,7 +18,7 @@ public class Role {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", orphanRemoval = true)
     private Set<User> users;
 
     public Role(){ }
