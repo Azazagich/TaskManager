@@ -10,9 +10,9 @@ public interface CrudService<DTO, ID extends Long> {
 
     DTO save(DTO dto);
 
-    boolean updateAll(DTO dtos);
+    boolean updateAll(Long id, DTO dto);
 
-    boolean update(DTO dto);
+    boolean update(Long id, DTO dto);
 
     void deleteById(ID id);
 }
