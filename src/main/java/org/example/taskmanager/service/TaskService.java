@@ -1,8 +1,6 @@
 package org.example.taskmanager.service;
 
-import org.example.taskmanager.domain.Role;
 import org.example.taskmanager.domain.Task;
-import org.example.taskmanager.repository.TagRepository;
 import org.example.taskmanager.repository.TaskRepository;
 import org.example.taskmanager.service.dto.TaskDTO;
 import org.example.taskmanager.service.mapper.TaskMapper;
@@ -29,7 +27,7 @@ public class TaskService implements CrudService<TaskDTO, Long>{
 
     @Override
     public TaskDTO getById(Long id) {
-        return taskMapper.toDTO(taskRepository.findById(id)).orElseThrow();
+        return taskMapper.toDTO(taskRepository.findById(id).orElseThrow());
     }
 
     @Override
@@ -43,16 +41,16 @@ public class TaskService implements CrudService<TaskDTO, Long>{
     }
 
     @Override
-    public boolean updateAll(TaskDTO taskDTO) {
-        Task task = taskRepository.findById(taskDTO.getId()).orElseThrow();
+    public boolean updateAll(Long id, TaskDTO taskDTO) {
+        Task task = taskRepository.findById(id).orElseThrow();
         taskMapper.fullUpdate(taskDTO, task);
         taskRepository.save(task);
         return true;
     }
 
     @Override
-    public boolean update(TaskDTO taskDTO) {
-        Task task = taskRepository.findById(taskDTO.getId()).orElseThrow();
+    public boolean update(Long id, TaskDTO taskDTO) {
+        Task task = taskRepository.findById(id).orElseThrow();
         taskMapper.partialUpdate(taskDTO, task);
         taskRepository.save(task);
         return true;

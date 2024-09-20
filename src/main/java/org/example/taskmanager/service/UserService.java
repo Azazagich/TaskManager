@@ -1,11 +1,8 @@
 package org.example.taskmanager.service;
 
-import org.example.taskmanager.domain.Role;
 import org.example.taskmanager.domain.User;
-import org.example.taskmanager.repository.TaskRepository;
 import org.example.taskmanager.repository.UserRepository;
 import org.example.taskmanager.service.dto.UserDTO;
-import org.example.taskmanager.service.mapper.TaskMapper;
 import org.example.taskmanager.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +26,7 @@ public class UserService implements CrudService<UserDTO, Long>{
 
     @Override
     public UserDTO getById(Long id) {
-        return userMapper.toDTO(userRepository.findById(id)).orElseThrow();
+        return userMapper.toDTO(userRepository.findById(id).orElseThrow());
     }
 
     @Override
@@ -43,16 +40,16 @@ public class UserService implements CrudService<UserDTO, Long>{
     }
 
     @Override
-    public boolean updateAll(UserDTO userDTO) {
-        User user = userRepository.findById(userDTO.getId()).orElseThrow();
+    public boolean updateAll(Long id, UserDTO userDTO) {
+        User user = userRepository.findById(id).orElseThrow();
         userMapper.fullUpdate(userDTO, user);
         userRepository.save(user);
         return true;
     }
 
     @Override
-    public boolean update(UserDTO userDTO) {
-        User user = userRepository.findById(userDTO.getId()).orElseThrow();
+    public boolean update(Long id, UserDTO userDTO) {
+        User user = userRepository.findById(id).orElseThrow();
         userMapper.partialUpdate(userDTO, user);
         userRepository.save(user);
         return true;
