@@ -5,6 +5,7 @@ import org.example.taskmanager.domain.Role;
 import org.example.taskmanager.domain.Task;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ public class UserDTO implements Serializable {
 
     private Set<TaskDTO> tasks;
 
+    public UserDTO(){ }
 
     public Long getId() {
         return Id;

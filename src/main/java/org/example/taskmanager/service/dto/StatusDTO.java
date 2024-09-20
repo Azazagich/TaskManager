@@ -12,6 +12,7 @@ public class StatusDTO implements Serializable {
 
     private Set<TaskDTO> tasks;
 
+    public StatusDTO(){ }
 
     public Long getId() {
         return id;

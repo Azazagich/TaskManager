@@ -12,6 +12,8 @@ public class TagDTO implements Serializable {
 
     private Set<TaskDTO> tasks;
 
+    public TagDTO(){ }
+
     public Long getId() {
         return id;
     }

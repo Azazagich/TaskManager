@@ -1,5 +1,7 @@
 package org.example.taskmanager.service.dto;
 
+import org.example.taskmanager.domain.Task;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -24,6 +26,7 @@ public class TaskDTO implements Serializable {
 
     private Set<TagDTO> tags;
 
+    public TaskDTO(){ }
 
     public Long getId() {
         return id;
