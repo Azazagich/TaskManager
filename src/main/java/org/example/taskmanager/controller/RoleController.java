@@ -1,18 +1,21 @@
 package org.example.taskmanager.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.taskmanager.service.RoleService;
 import org.example.taskmanager.service.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/role")
+@RequestMapping(path = "/roles")
 public class RoleController {
 
-    private RoleService roleService;
+    private static Logger logger = LogManager.getLogger(RoleController.class);
+
+    private final RoleService roleService;
 
     @Autowired
     public RoleController(RoleService roleService){
@@ -20,13 +23,13 @@ public class RoleController {
     }
 
 
-    @GetMapping
-    public RoleDTO getRole(@RequestParam Long id){
+    @GetMapping("/{id}")
+    public RoleDTO getRole(@PathVariable Long id){
         return roleService.getById(id);
     }
 
 
-    @GetMapping(path = "/allRoles")
+    @GetMapping
     public List<RoleDTO> getAllRoles(){
         return roleService.getAll();
     }
@@ -37,21 +40,21 @@ public class RoleController {
         return roleService.save(roleDTO);
     }
 
-    //ToDO
-    @PutMapping
-    public boolean fullUpdateRole(@RequestParam Long id, @RequestBody RoleDTO roleDTO){
+
+    @PutMapping("/{id}")
+    public boolean fullUpdateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO){
         return roleService.updateAll(id, roleDTO);
     }
 
-    //ToDO
-    @PatchMapping
-    public boolean partialUpdateRole(@RequestParam Long id, @RequestBody RoleDTO roleDTO){
-        return roleService.updateAll(id, roleDTO);
+
+    @PatchMapping("/{id}")
+    public boolean partialUpdateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO){
+        return roleService.update(id, roleDTO);
     }
 
-    //ToDO
-    @DeleteMapping
-    public boolean deleteRole(@RequestParam Long id){
-        return roleService.deleteById(id);
+    //TODO
+    @DeleteMapping("{id}")
+    public void deleteRole(@PathVariable Long id){
+        roleService.deleteById(id);
     }
 }
