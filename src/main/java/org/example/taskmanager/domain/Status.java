@@ -16,7 +16,7 @@ public class Status {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "status")
+    @OneToMany(mappedBy = "status", orphanRemoval = true)
     private Set<Task> tasks;
 
     public Status(){ }

@@ -26,14 +26,14 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "roleId")
     private Role role;
 
-    @OneToMany(mappedBy = "createBy")
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Task> created_tasks;
 
-    @ManyToMany(mappedBy = "performers")
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Task> tasks;
 
 
@@ -128,6 +128,7 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+        role.addUser(this);
     }
 
     public Set<Task> getTasks() {

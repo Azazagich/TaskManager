@@ -16,7 +16,7 @@ public class Tag {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "tags")
     private Set<Task> tasks;
 
     public Tag(){ }
