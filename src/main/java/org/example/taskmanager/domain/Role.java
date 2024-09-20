@@ -18,7 +18,7 @@ public class Role {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "role", orphanRemoval = true)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> users;
 
     public Role(){ }
@@ -47,6 +47,16 @@ public class Role {
     }
 
     public void setUsers(Set<User> users) {
+        if (this.users != null){
+            for (User user : this.users){
+                user.setRole(null);
+            }
+        }
+        if (users != null){
+            for (User user : users){
+                user.setRole(this);
+            }
+        }
         this.users = users;
     }
 
@@ -61,6 +71,14 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addUser(User user){
+        this.users.add(user);
+    }
+
+    public void removeUser(User user){
+        this.users.remove(user);
     }
 
     @Override
