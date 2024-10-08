@@ -23,9 +23,9 @@ public class UserDTO implements Serializable {
 
     private RoleDTO role;
 
-    private Set<TaskDTO> created_tasks;
+    private Set<TaskDTO> created_tasks = new HashSet<>();
 
-    private Set<TaskDTO> tasks;
+    private Set<TaskDTO> tasks = new HashSet<>();
 
     public UserDTO(){ }
 

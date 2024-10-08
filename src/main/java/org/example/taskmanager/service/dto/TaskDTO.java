@@ -4,6 +4,7 @@ import org.example.taskmanager.domain.Task;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,9 +23,9 @@ public class TaskDTO implements Serializable {
 
     private UserDTO createBy;
 
-    private Set<UserDTO> performers;
+    private Set<UserDTO> performers = new HashSet<>();
 
-    private Set<TagDTO> tags;
+    private Set<TagDTO> tags = new HashSet<>();
 
     public TaskDTO(){ }
 

@@ -1,6 +1,7 @@
 package org.example.taskmanager.service.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,7 +11,7 @@ public class StatusDTO implements Serializable {
 
     private String name;
 
-    private Set<TaskDTO> tasks;
+    private Set<TaskDTO> tasks = new HashSet<>();
 
     public StatusDTO(){ }
 
