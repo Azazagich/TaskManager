@@ -2,6 +2,8 @@ package org.example.taskmanager.domain;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Objects;
 import java.util.Set;
@@ -12,17 +14,20 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<User> users;
 
     public Role(){ }
 
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -31,10 +36,6 @@ public class Role {
     public Role id(Long id){
         this.id = id;
         return this;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public Set<User> getUsers() {
@@ -46,16 +47,13 @@ public class Role {
         return this;
     }
 
+    //#
     public void setUsers(Set<User> users) {
         if (this.users != null){
-            for (User user : this.users){
-                user.setRole(null);
-            }
+            this.users.forEach(i -> i.setRole(null));
         }
         if (users != null){
-            for (User user : users){
-                user.setRole(this);
-            }
+            users.forEach(i -> i.setRole(this));
         }
         this.users = users;
     }
@@ -74,11 +72,8 @@ public class Role {
     }
 
     public void addUser(User user){
+        user.setRole(this);
         this.users.add(user);
-    }
-
-    public void removeUser(User user){
-        this.users.remove(user);
     }
 
     @Override
