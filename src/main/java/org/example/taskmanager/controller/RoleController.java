@@ -1,7 +1,5 @@
 package org.example.taskmanager.controller;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.example.taskmanager.service.RoleService;
 import org.example.taskmanager.service.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/roles")
 public class RoleController {
-
-    private static Logger logger = LogManager.getLogger(RoleController.class);
 
     private final RoleService roleService;
 
@@ -53,7 +49,7 @@ public class RoleController {
     }
 
     //TODO
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteRole(@PathVariable Long id){
         roleService.deleteById(id);
     }
