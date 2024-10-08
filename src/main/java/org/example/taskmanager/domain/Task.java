@@ -11,44 +11,55 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "body")
     private String body;
 
-    @Column(name = "startDate")
+    @Column(name = "start_date")
     private LocalDateTime startDate;
 
-    @Column(name = "finishDate")
+    @Column(name = "finish_date")
     private LocalDateTime finishDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "status_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn
     private Status status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "createBy_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn
     private User createBy;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "users_tasks",
-            joinColumns = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id")
     )
     private Set<User> performers;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "tasks_tags",
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags;
+
+    public void addPerformer(User user){
+        performers.add(user);
+    }
+
+    public void addTag(Tag tag){
+        tags.add(tag);
+    }
+
+    public void removeTag(Tag tag){
+        tags.remove(tag);
+    }
 
     public Task() {}
 
@@ -127,7 +138,7 @@ public class Task {
     }
 
     public void setStatus(Status status) {
-        this.status = status;
+        this.status = status;;
     }
 
     public User getCreateBy() {
@@ -153,6 +164,12 @@ public class Task {
     }
 
     public void setPerformers(Set<User> performers) {
+        if (this.performers != null){
+            this.performers.forEach(i -> i.setTasks(null));
+        }
+        if (performers != null){
+            performers.forEach(performer -> performer.addTask(this));
+        }
         this.performers = performers;
     }
 
@@ -166,6 +183,12 @@ public class Task {
     }
 
     public void setTags(Set<Tag> tags) {
+        if (this.tags != null){
+            this.tags.forEach(tag -> tag.addTask(null));
+        }
+        if (tags != null){
+            tags.forEach(tag -> tag.addTask(this));
+        }
         this.tags = tags;
     }
 
