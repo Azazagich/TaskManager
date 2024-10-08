@@ -10,19 +10,18 @@ public class Status {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "status", orphanRemoval = true)
+    @OneToMany(mappedBy = "status", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Task> tasks;
 
     public Status(){ }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public Status id(Long id){
@@ -30,21 +29,8 @@ public class Status {
         return this;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Set<Task> getTasks() {
-        return tasks;
-    }
-
-    public Status tasks(Set<Task> tasks) {
-        this.tasks = tasks;
-        return this;
-    }
-
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -58,6 +44,32 @@ public class Status {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public Status tasks(Set<Task> tasks) {
+        this.tasks = tasks;
+        return this;
+    }
+
+    //#
+    public void setTasks(Set<Task> tasks) {
+        if (this.tasks != null){
+            tasks.forEach(task -> task.setStatus(null));
+        }
+        if (tasks != null){
+            tasks.forEach(task -> task.setStatus(this));
+        }
+        this.tasks = tasks;
+    }
+
+    //#
+    public void addTask(Task task){
+        this.tasks.add(task);
+        task.setStatus(this);
     }
 
     @Override
