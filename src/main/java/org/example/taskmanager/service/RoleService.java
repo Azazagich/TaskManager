@@ -7,14 +7,10 @@ import org.example.taskmanager.repository.UserRepository;
 import org.example.taskmanager.service.dto.RoleDTO;
 import org.example.taskmanager.service.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.Set;
-
-import org.example.taskmanager.domain.User;
 
 @Service
 @Transactional
@@ -23,13 +19,11 @@ public class RoleService implements CrudService<RoleDTO, Long>{
     private final RoleRepository roleRepository;
 
     private final RoleMapper roleMapper;
-    private final UserRepository userRepository;
 
     @Autowired
-    public RoleService(RoleRepository roleRepository, RoleMapper roleMapper, UserRepository userRepository){
+    public RoleService(RoleRepository roleRepository, RoleMapper roleMapper){
         this.roleRepository = roleRepository;
         this.roleMapper = roleMapper;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -69,16 +63,11 @@ public class RoleService implements CrudService<RoleDTO, Long>{
 
     @Override
     public void deleteById(Long id) {
-        Role role = roleRepository.findById(id).orElseThrow();
-        Set<User> users =  role.getUsers();
-        users.iterator().forEachRemaining(user -> user.setRole(null));
-        userRepository.saveAll(users);
         try {
             roleRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new EntityNotFoundException("Role with id " + id + " not found");
         }
-
     }
 }
 

@@ -1,6 +1,7 @@
 package org.example.taskmanager.service;
 
 import org.example.taskmanager.domain.Task;
+import org.example.taskmanager.domain.User;
 import org.example.taskmanager.repository.TaskRepository;
 import org.example.taskmanager.service.dto.TaskDTO;
 import org.example.taskmanager.service.mapper.TaskMapper;
@@ -58,6 +59,8 @@ public class TaskService implements CrudService<TaskDTO, Long>{
 
     @Override
     public void deleteById(Long id) {
+        Task task = taskRepository.findById(id).orElseThrow();
+        task.getPerformers();
         taskRepository.deleteById(id);
     }
 }
