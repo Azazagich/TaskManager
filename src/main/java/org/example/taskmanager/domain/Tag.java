@@ -10,13 +10,12 @@ public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Task> tasks;
 
     public Tag(){ }
@@ -57,8 +56,19 @@ public class Tag {
     }
 
     public void setTasks(Set<Task> tasks) {
+        if (this.tasks != null){
+            tasks.forEach(task -> task.addTag(null));
+        }
+        if (tasks != null){
+            tasks.forEach(task -> task.addTag(this));
+        }
         this.tasks = tasks;
     }
+
+    public void addTask(Task task){
+        this.tasks.add(task);
+    }
+
 
     @Override
     public String toString() {
