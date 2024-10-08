@@ -1,7 +1,6 @@
 package org.example.taskmanager.domain;
 
 import jakarta.persistence.*;
-
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,45 +10,54 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long Id;
+    private Long id;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false, unique = true)
     private String password;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "roleId")
+    @ManyToOne
+    @JoinColumn
     private Role role;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Task> created_tasks;
+//    @PreRemove
+//    private void removeTaskAssociations() {
+//        for (Task task : this.tasks) {
+//            task.getPerformers().remove(this);
+//        }
+//    }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "performers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Task> tasks;
+
+
+    public void addTask(Task task){
+        this.tasks.add(task);
+    }
+
 
 
     public User(){ }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public User id(Long id){
-        this.Id = id;
+        this.id = id;
         return this;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -78,18 +86,18 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Set<Task> getCreated_tasks() {
-        return created_tasks;
-    }
-
-    public User created_tasks(Set<Task> created_tasks) {
-        this.created_tasks = created_tasks;
-        return this;
-    }
-
-    public void setCreated_tasks(Set<Task> created_tasks) {
-        this.created_tasks = created_tasks;
-    }
+//    public Set<Task> getCreated_tasks() {
+//        return created_tasks;
+//    }
+//
+//    public User created_tasks(Set<Task> created_tasks) {
+//        this.created_tasks = created_tasks;
+//        return this;
+//    }
+//
+//    public void setCreated_tasks(Set<Task> created_tasks) {
+//        this.created_tasks = created_tasks;
+//    }
 
     public String getEmail() {
         return email;
@@ -141,19 +149,25 @@ public class User {
     }
 
     public void setTasks(Set<Task> tasks) {
+        if (this.tasks != null){
+            tasks.forEach(task -> task.setPerformers(null));
+        }
+        if (tasks != null){
+            tasks.forEach(task -> task.addPerformer(this));
+        }
         this.tasks = tasks;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-                ", created_tasks=" + created_tasks +
+                /*", created_tasks=" + created_tasks +*/
                 ", tasks=" + tasks +
                 '}';
     }
@@ -163,11 +177,18 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(Id, user.Id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(role, user.role) && Objects.equals(created_tasks, user.created_tasks) && Objects.equals(tasks, user.tasks);
+        return Objects.equals(id, user.id) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(role, user.role) &&
+                /*Objects.equals(created_tasks, user.created_tasks) &&*/
+                Objects.equals(tasks, user.tasks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, firstName, lastName, email, password, role, created_tasks, tasks);
+        return Objects.hash(id, firstName, lastName, email, password, role, /*created_tasks,*/ tasks);
     }
 }
