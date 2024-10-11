@@ -1,5 +1,7 @@
 package org.example.taskmanager.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -31,6 +33,7 @@ public class RoleDTO implements Serializable {
         this.name = name;
     }
 
+    @JsonManagedReference
     public Set<UserDTO> getUsers() {
         return users;
     }
@@ -44,22 +47,22 @@ public class RoleDTO implements Serializable {
         return "RoleDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RoleDTO roleDTO = (RoleDTO) o;
-        return Objects.equals(id, roleDTO.id) &&
-                Objects.equals(name, roleDTO.name) &&
-                Objects.equals(users, roleDTO.users);
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof RoleDTO)){
+            return false;
+        }
+        return id == ((RoleDTO)o).id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, users);
+        return getClass().hashCode();
     }
 }
