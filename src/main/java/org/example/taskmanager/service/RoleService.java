@@ -1,9 +1,10 @@
 package org.example.taskmanager.service;
 
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceContext;
 import org.example.taskmanager.domain.Role;
 import org.example.taskmanager.repository.RoleRepository;
-import org.example.taskmanager.repository.UserRepository;
 import org.example.taskmanager.service.dto.RoleDTO;
 import org.example.taskmanager.service.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ public class RoleService implements CrudService<RoleDTO, Long>{
 
     @Override
     public RoleDTO getById(Long id) {
-        return roleMapper.toDTO(roleRepository.findById(id).orElseThrow());
+        Role role = roleRepository.findOne(id).orElseThrow();
+        return roleMapper.toDTO(role);
     }
 
     @Override
@@ -45,7 +47,7 @@ public class RoleService implements CrudService<RoleDTO, Long>{
     //Повне оновлення означає, що всі поля DTO повинні перезаписати відповідні поля сутності, навіть якщо вони мають значення null.
     @Override
     public boolean updateAll(Long id, RoleDTO roleDTO) {
-        Role role = roleRepository.findById(id).orElseThrow();
+        Role role = roleRepository.findOne(id).orElseThrow();
         roleMapper.fullUpdate(roleDTO, role);
         roleRepository.save(role);
         return true;
@@ -55,7 +57,7 @@ public class RoleService implements CrudService<RoleDTO, Long>{
     //Часткове оновлення означає, що оновлюються лише ті поля, які явно задані у DTO. Поля, що мають значення null, не повинні перезаписувати існуючі дані у базі.)
     @Override
     public boolean update(Long id, RoleDTO roleDTO) {
-        Role role = roleRepository.findById(id).orElseThrow();
+        Role role = roleRepository.findOne(id).orElseThrow();
         roleMapper.partialUpdate(roleDTO, role);
         roleRepository.save(role);
         return true;
