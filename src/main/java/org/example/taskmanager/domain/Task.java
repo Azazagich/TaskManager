@@ -25,11 +25,11 @@ public class Task {
     @Column(name = "finish_date")
     private LocalDateTime finishDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn
     private Status status;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private User createBy;
 
@@ -209,22 +209,17 @@ public class Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return Objects.equals(id, task.id) &&
-                Objects.equals(title, task.title) &&
-                Objects.equals(body, task.body) &&
-                Objects.equals(startDate, task.startDate) &&
-                Objects.equals(finishDate, task.finishDate) &&
-                Objects.equals(status, task.status) &&
-                Objects.equals(createBy, task.createBy) &&
-                Objects.equals(performers, task.performers) &&
-                Objects.equals(tags, task.tags);
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Task)){
+            return false;
+        }
+        return id == ((Task)o).id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, body, startDate, finishDate, status, createBy, performers, tags);
+        return getClass().hashCode();
     }
 }
