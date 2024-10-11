@@ -1,8 +1,7 @@
 package org.example.taskmanager.service.dto;
 
-import jakarta.persistence.*;
-import org.example.taskmanager.domain.Role;
-import org.example.taskmanager.domain.Task;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -11,7 +10,7 @@ import java.util.Set;
 
 public class UserDTO implements Serializable {
 
-    private Long Id;
+    private Long id;
 
     private String firstName;
 
@@ -21,6 +20,7 @@ public class UserDTO implements Serializable {
 
     private String password;
 
+    @JsonBackReference
     private RoleDTO role;
 
     private Set<TaskDTO> created_tasks = new HashSet<>();
@@ -30,11 +30,11 @@ public class UserDTO implements Serializable {
     public UserDTO(){ }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -96,12 +96,12 @@ public class UserDTO implements Serializable {
     @Override
     public String toString() {
         return "UserDTO{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
+                ", role=" + role.getName() +
                 ", created_tasks=" + created_tasks +
                 ", tasks=" + tasks +
                 '}';
@@ -109,21 +109,17 @@ public class UserDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(Id, userDTO.Id) &&
-                Objects.equals(firstName, userDTO.firstName) &&
-                Objects.equals(lastName, userDTO.lastName) &&
-                Objects.equals(email, userDTO.email) &&
-                Objects.equals(password, userDTO.password) &&
-                Objects.equals(role, userDTO.role) &&
-                Objects.equals(created_tasks, userDTO.created_tasks) &&
-                Objects.equals(tasks, userDTO.tasks);
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof UserDTO)){
+            return false;
+        }
+        return id == ((UserDTO)o).id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, firstName, lastName, email, password, role, created_tasks, tasks);
+        return getClass().hashCode();
     }
 }
