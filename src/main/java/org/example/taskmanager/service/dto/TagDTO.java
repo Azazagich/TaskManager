@@ -50,14 +50,16 @@ public class TagDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TagDTO tagDTO = (TagDTO) o;
-        return Objects.equals(id, tagDTO.id) && Objects.equals(name, tagDTO.name) && Objects.equals(tasks, tagDTO.tasks);
-    }
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof TagDTO)){
+            return false;
+        }
+        return id == ((TagDTO)o).id;    }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, tasks);
+        return getClass().hashCode();
     }
 }
