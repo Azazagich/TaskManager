@@ -50,14 +50,17 @@ public class StatusDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        StatusDTO statusDTO = (StatusDTO) o;
-        return Objects.equals(id, statusDTO.id) && Objects.equals(name, statusDTO.name) && Objects.equals(tasks, statusDTO.tasks);
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof StatusDTO)){
+            return false;
+        }
+        return id == ((StatusDTO)o).id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, tasks);
+        return getClass().hashCode();
     }
 }
