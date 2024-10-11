@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import static java.util.stream.StreamSupport.stream;
 
 @Mapper(componentModel = "spring")
 public interface RoleMapper extends MapperEntity<Role, RoleDTO>{
@@ -24,19 +27,49 @@ public interface RoleMapper extends MapperEntity<Role, RoleDTO>{
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL)
     void fullUpdate(RoleDTO dto, @MappingTarget Role entity);
 
-    @Named("customRoleMapper")
-    @Mapping(target = "users", source = "users", qualifiedByName = "userId")
-    RoleDTO toDTO(Role role);
-
-    @Named("userId")
+    //to dto mapper
+    @Named("userDTOMap")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "firstName", source = "firstName")
     @Mapping(target = "lastName", source = "lastName")
     @Mapping(target = "email", source = "email")
     @Mapping(target = "password", source = "password")
-    @Mapping(target = "role", source = "role"/*ignore = true*/)
-    UserDTO toDtoUserId(User user);
+    UserDTO toDtoUser(User user);
+
+
+    // to dto role mapper
+    @Named("customRoleMapper")
+    @Mapping(target = "users", source = "users", qualifiedByName = "userDTOMap")
+    RoleDTO toDTO(Role role);
+
+
+    //to dtos role mapper
+    @Named("customRolesMapper")
+    @IterableMapping(qualifiedByName = "customRoleMapper")
+    List<RoleDTO> toDTOS(List<Role> roles);
+
+
+    @Named("customRoleDTOMapper")
+    @Mapping(target = "users", source = "users", qualifiedByName = "userMap")
+    Role toEntity(RoleDTO roleDTO);
+
+
+    @Named("customRolesDTOMapper")
+    @IterableMapping(qualifiedByName = "customRoleDTOMapper")
+    List<Role> toEntities(List<RoleDTO> roleDTO);
+
+
+    @Named("userMap")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "firstName", source = "firstName")
+    @Mapping(target = "lastName", source = "lastName")
+    @Mapping(target = "email", source = "email")
+    @Mapping(target = "password", source = "password")
+    User toUserEntity(UserDTO user);
+
+//    List<Role> toEntities(List<RoleDTO> rolesDTO);
 }
 
 
