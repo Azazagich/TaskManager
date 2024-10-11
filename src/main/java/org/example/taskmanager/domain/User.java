@@ -1,5 +1,6 @@
 package org.example.taskmanager.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.Objects;
 import java.util.Set;
@@ -166,7 +167,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
+                ", role=" + role.getName() +
                 /*", created_tasks=" + created_tasks +*/
                 ", tasks=" + tasks +
                 '}';
@@ -174,21 +175,17 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(role, user.role) &&
-                /*Objects.equals(created_tasks, user.created_tasks) &&*/
-                Objects.equals(tasks, user.tasks);
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof User)){
+            return false;
+        }
+        return id == ((User)o).id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, password, role, /*created_tasks,*/ tasks);
+        return getClass().hashCode();
     }
 }
