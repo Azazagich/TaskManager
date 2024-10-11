@@ -118,22 +118,16 @@ public class TaskDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TaskDTO taskDTO = (TaskDTO) o;
-        return Objects.equals(id, taskDTO.id) &&
-                Objects.equals(title, taskDTO.title) &&
-                Objects.equals(body, taskDTO.body) &&
-                Objects.equals(startDate, taskDTO.startDate) &&
-                Objects.equals(finishDate, taskDTO.finishDate) &&
-                Objects.equals(status, taskDTO.status) &&
-                Objects.equals(createBy, taskDTO.createBy) &&
-                Objects.equals(performers, taskDTO.performers) &&
-                Objects.equals(tags, taskDTO.tags);
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof TaskDTO)){
+            return false;
+        }
+        return id == ((TaskDTO)o).id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, body, startDate, finishDate, status, createBy, performers, tags);
-    }
+        return getClass().hashCode();    }
 }
