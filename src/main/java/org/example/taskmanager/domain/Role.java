@@ -1,7 +1,9 @@
 package org.example.taskmanager.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
+import org.example.taskmanager.service.dto.RoleDTO;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -72,7 +74,6 @@ public class Role {
     }
 
     public void addUser(User user){
-        user.setRole(this);
         this.users.add(user);
     }
 
@@ -87,16 +88,17 @@ public class Role {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Role role = (Role) o;
-        return Objects.equals(id, role.id) &&
-                Objects.equals(name, role.name) &&
-                Objects.equals(users, role.users);
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Role)){
+            return false;
+        }
+        return id == ((Role)o).id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, users);
+        return getClass().hashCode();
     }
 }
