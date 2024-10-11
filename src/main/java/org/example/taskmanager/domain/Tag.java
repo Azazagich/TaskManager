@@ -81,14 +81,16 @@ public class Tag {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Tag tag = (Tag) o;
-        return Objects.equals(id, tag.id) && Objects.equals(name, tag.name) && Objects.equals(tasks, tag.tasks);
-    }
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Tag)){
+            return false;
+        }
+        return id == ((Tag)o).id;    }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, tasks);
+        return getClass().hashCode();
     }
 }
