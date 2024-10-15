@@ -33,7 +33,7 @@ public class Task {
     @JoinColumn
     private User createBy;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "users_tasks",
             joinColumns = @JoinColumn(name = "user_id"),
