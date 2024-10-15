@@ -20,10 +20,7 @@ public class UserDTO implements Serializable {
 
     private String password;
 
-    @JsonBackReference
     private RoleDTO role;
-
-    private Set<TaskDTO> created_tasks = new HashSet<>();
 
     private Set<TaskDTO> tasks = new HashSet<>();
 
@@ -77,14 +74,6 @@ public class UserDTO implements Serializable {
         this.role = role;
     }
 
-    public Set<TaskDTO> getCreated_tasks() {
-        return created_tasks;
-    }
-
-    public void setCreated_tasks(Set<TaskDTO> created_tasks) {
-        this.created_tasks = created_tasks;
-    }
-
     public Set<TaskDTO> getTasks() {
         return tasks;
     }
@@ -102,7 +91,6 @@ public class UserDTO implements Serializable {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role.getName() +
-                ", created_tasks=" + created_tasks +
                 ", tasks=" + tasks +
                 '}';
     }
