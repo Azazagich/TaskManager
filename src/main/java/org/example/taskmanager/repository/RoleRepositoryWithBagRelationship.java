@@ -4,6 +4,6 @@ import org.example.taskmanager.domain.Role;
 
 import java.util.Optional;
 
-public interface RoleRepositoryWithBagRelationship {
-    Optional<Role> findOneRole(Long id);
-}
+//public interface RoleRepositoryWithBagRelationship {
+//    Optional<Role> findOneRole(Long id);
+//}
