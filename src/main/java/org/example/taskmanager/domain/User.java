@@ -36,15 +36,12 @@ public class User {
 //        }
 //    }
 
-    @ManyToMany(mappedBy = "performers", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "performers", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Task> tasks;
-
 
     public void addTask(Task task){
         this.tasks.add(task);
     }
-
-
 
     public User(){ }
 
@@ -137,7 +134,7 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
-        role.addUser(this);
+//        role.addUser(this);
     }
 
     public Set<Task> getTasks() {
