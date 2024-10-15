@@ -28,46 +28,46 @@ public interface RoleMapper extends MapperEntity<Role, RoleDTO>{
     void fullUpdate(RoleDTO dto, @MappingTarget Role entity);
 
     //to dto mapper
-    @Named("userDTOMap")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "firstName", source = "firstName")
-    @Mapping(target = "lastName", source = "lastName")
-    @Mapping(target = "email", source = "email")
-    @Mapping(target = "password", source = "password")
-    UserDTO toDtoUser(User user);
+//    @Named("userDTOMap")
+//    @BeanMapping(ignoreByDefault = true)
+//    @Mapping(target = "id", source = "id")
+//    @Mapping(target = "firstName", source = "firstName")
+//    @Mapping(target = "lastName", source = "lastName")
+//    @Mapping(target = "email", source = "email")
+//    @Mapping(target = "password", source = "password")
+//    UserDTO toDtoUser(User user);
 
 
     // to dto role mapper
-    @Named("customRoleMapper")
-    @Mapping(target = "users", source = "users", qualifiedByName = "userDTOMap")
-    RoleDTO toDTO(Role role);
+//    @Named("customRoleMapper")
+//    @Mapping(target = "users", source = "users", qualifiedByName = "userDTOMap")
+//    RoleDTO toDTO(Role role);
 
 
     //to dtos role mapper
-    @Named("customRolesMapper")
-    @IterableMapping(qualifiedByName = "customRoleMapper")
-    List<RoleDTO> toDTOS(List<Role> roles);
-
-
-    @Named("customRoleDTOMapper")
-    @Mapping(target = "users", source = "users", qualifiedByName = "userMap")
-    Role toEntity(RoleDTO roleDTO);
-
-
-    @Named("customRolesDTOMapper")
-    @IterableMapping(qualifiedByName = "customRoleDTOMapper")
-    List<Role> toEntities(List<RoleDTO> roleDTO);
-
-
-    @Named("userMap")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "firstName", source = "firstName")
-    @Mapping(target = "lastName", source = "lastName")
-    @Mapping(target = "email", source = "email")
-    @Mapping(target = "password", source = "password")
-    User toUserEntity(UserDTO user);
+//    @Named("customRolesMapper")
+//    @IterableMapping(qualifiedByName = "customRoleMapper")
+//    List<RoleDTO> toDTOS(List<Role> roles);
+//
+//
+//    @Named("customRoleDTOMapper")
+//    @Mapping(target = "users", source = "users", qualifiedByName = "userMap")
+//    Role toEntity(RoleDTO roleDTO);
+//
+//
+//    @Named("customRolesDTOMapper")
+//    @IterableMapping(qualifiedByName = "customRoleDTOMapper")
+//    List<Role> toEntities(List<RoleDTO> roleDTO);
+//
+//
+//    @Named("userMap")
+//    @BeanMapping(ignoreByDefault = true)
+//    @Mapping(target = "id", source = "id")
+//    @Mapping(target = "firstName", source = "firstName")
+//    @Mapping(target = "lastName", source = "lastName")
+//    @Mapping(target = "email", source = "email")
+//    @Mapping(target = "password", source = "password")
+//    User toUserEntity(UserDTO user);
 
 //    List<Role> toEntities(List<RoleDTO> rolesDTO);
 }
