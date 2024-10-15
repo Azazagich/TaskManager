@@ -138,7 +138,8 @@ public class Task {
     }
 
     public void setStatus(Status status) {
-        this.status = status;;
+        this.status = status;
+        status.addTask(this);
     }
 
     public User getCreateBy() {
