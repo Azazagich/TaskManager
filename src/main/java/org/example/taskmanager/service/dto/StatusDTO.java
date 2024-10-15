@@ -1,5 +1,8 @@
 package org.example.taskmanager.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,6 +14,7 @@ public class StatusDTO implements Serializable {
 
     private String name;
 
+    @JsonBackReference
     private Set<TaskDTO> tasks = new HashSet<>();
 
     public StatusDTO(){ }
