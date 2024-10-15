@@ -1,19 +1,12 @@
 package org.example.taskmanager.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 public class RoleDTO implements Serializable {
 
     private Long id;
 
     private String name;
-
-    private Set<UserDTO> users = new HashSet<>();
 
     public RoleDTO() { }
 
@@ -31,15 +24,6 @@ public class RoleDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @JsonManagedReference
-    public Set<UserDTO> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<UserDTO> users) {
-        this.users = users;
     }
 
     @Override
