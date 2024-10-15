@@ -24,6 +24,7 @@ public interface TaskMapper extends MapperEntity<Task, TaskDTO>{
 
     @Named("customTaskMapper")
     @Mapping(target = "performers", source = "performers", qualifiedByName = "userDTOMap")
+    @Mapping(target = "createBy", source = "createBy", qualifiedByName = "userDTOMap")
     @Mapping(target = "tags", source = "tags", qualifiedByName = "tagDTOMap")
     @Mapping(target = "status", source = "status", qualifiedByName = "statusDTOMap")
     TaskDTO toDTO(Task task);
