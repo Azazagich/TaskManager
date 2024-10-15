@@ -1,6 +1,8 @@
 package org.example.taskmanager.domain;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,7 +17,7 @@ public class Status {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "status", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "status", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Task> tasks;
 
     public Status(){ }
@@ -58,7 +60,7 @@ public class Status {
     //#
     public void setTasks(Set<Task> tasks) {
         if (this.tasks != null){
-            tasks.forEach(task -> task.setStatus(null));
+            this.tasks.forEach(task -> task.setStatus(null));
         }
         if (tasks != null){
             tasks.forEach(task -> task.setStatus(this));
@@ -68,8 +70,8 @@ public class Status {
 
     //#
     public void addTask(Task task){
-        this.tasks.add(task);
         task.setStatus(this);
+        this.tasks.add(task);
     }
 
     @Override
@@ -77,7 +79,6 @@ public class Status {
         return "Status{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", tasks=" + tasks +
                 '}';
     }
 
