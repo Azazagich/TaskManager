@@ -7,6 +7,7 @@ import org.example.taskmanager.service.dto.RoleDTO;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -21,9 +22,9 @@ public class Role {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<User> users;
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<User> users ;/*= new HashSet<>();
 
     public Role(){ }
 
@@ -40,26 +41,6 @@ public class Role {
         return this;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public Role users(Set<User> users) {
-        this.users = users;
-        return this;
-    }
-
-    //#
-    public void setUsers(Set<User> users) {
-        if (this.users != null){
-            this.users.forEach(i -> i.setRole(null));
-        }
-        if (users != null){
-            users.forEach(i -> i.setRole(this));
-        }
-        this.users = users;
-    }
-
     public String getName() {
         return name;
     }
@@ -73,16 +54,11 @@ public class Role {
         this.name = name;
     }
 
-    public void addUser(User user){
-        this.users.add(user);
-    }
-
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
                 '}';
     }
 
