@@ -48,7 +48,7 @@ public class TaskController {
         return taskService.update(id, taskDTO);
     }
 
-    //TODO
+
     @DeleteMapping("/{id}")
     public void deleteRole(@PathVariable Long id){
         taskService.deleteById(id);

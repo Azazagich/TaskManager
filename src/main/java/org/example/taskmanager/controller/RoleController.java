@@ -44,10 +44,12 @@ public class RoleController {
 
     }
 
+
     @PatchMapping("/{id}")
     public RoleDTO partialUpdateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO){
         return roleService.update(id, roleDTO);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteRole(@PathVariable Long id){

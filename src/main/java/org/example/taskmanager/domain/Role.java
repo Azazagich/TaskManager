@@ -1,15 +1,7 @@
 package org.example.taskmanager.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
-import org.example.taskmanager.service.dto.RoleDTO;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "role")
@@ -21,10 +13,6 @@ public class Role {
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<User> users ;/*= new HashSet<>();
 
     public Role(){ }
 

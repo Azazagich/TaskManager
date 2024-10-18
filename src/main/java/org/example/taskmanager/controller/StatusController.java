@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/statuses")
 public class StatusController {
+
     private final StatusService statusService;
 
     @Autowired
@@ -48,7 +49,7 @@ public class StatusController {
         return statusService.update(id, statusDTO);
     }
 
-    //TODO
+
     @DeleteMapping("/{id}")
     public void deleteRole(@PathVariable Long id){
         statusService.deleteById(id);
