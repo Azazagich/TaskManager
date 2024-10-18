@@ -1,6 +1,7 @@
 package org.example.taskmanager.controller;
 
 import org.example.taskmanager.service.StatusService;
+import org.example.taskmanager.service.dto.RoleDTO;
 import org.example.taskmanager.service.dto.StatusDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,13 +38,13 @@ public class StatusController {
 
 
     @PutMapping("/{id}")
-    public boolean fullUpdateRole(@PathVariable Long id, @RequestBody StatusDTO statusDTO){
+    public StatusDTO fullUpdateRole(@PathVariable Long id, @RequestBody StatusDTO statusDTO){
         return statusService.updateAll(id, statusDTO);
     }
 
 
     @PatchMapping("/{id}")
-    public boolean partialUpdateRole(@PathVariable Long id, @RequestBody StatusDTO statusDTO){
+    public StatusDTO partialUpdateRole(@PathVariable Long id, @RequestBody StatusDTO statusDTO){
         return statusService.update(id, statusDTO);
     }
 

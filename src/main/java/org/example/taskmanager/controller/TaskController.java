@@ -38,13 +38,13 @@ public class TaskController {
 
 
     @PutMapping("/{id}")
-    public boolean fullUpdateRole(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
+    public TaskDTO fullUpdateRole(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
         return taskService.updateAll(id, taskDTO);
     }
 
 
     @PatchMapping("/{id}")
-    public boolean partialUpdateRole(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
+    public TaskDTO partialUpdateRole(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
         return taskService.update(id, taskDTO);
     }
 

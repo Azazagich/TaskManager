@@ -38,13 +38,13 @@ public class TagController {
 
 
     @PutMapping("/{id}")
-    public boolean fullUpdateRole(@PathVariable Long id, @RequestBody TagDTO tagDTO){
+    public TagDTO fullUpdateRole(@PathVariable Long id, @RequestBody TagDTO tagDTO){
         return tagService.updateAll(id, tagDTO);
     }
 
 
     @PatchMapping("/{id}")
-    public boolean partialUpdateRole(@PathVariable Long id, @RequestBody TagDTO tagDTO){
+    public TagDTO partialUpdateRole(@PathVariable Long id, @RequestBody TagDTO tagDTO){
         return tagService.update(id, tagDTO);
     }
 

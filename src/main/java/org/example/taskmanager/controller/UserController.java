@@ -38,13 +38,13 @@ public class UserController {
 
 
     @PutMapping("/{id}")
-    public boolean fullUpdateUser(@PathVariable Long id, @RequestBody UserDTO userDTO){
+    public UserDTO fullUpdateUser(@PathVariable Long id, @RequestBody UserDTO userDTO){
         return userService.updateAll(id, userDTO);
     }
 
 
     @PatchMapping("/{id}")
-    public boolean partialUpdateUser(@PathVariable Long id, @RequestBody UserDTO userDTO){
+    public UserDTO partialUpdateUser(@PathVariable Long id, @RequestBody UserDTO userDTO){
         return userService.update(id, userDTO);
     }
 

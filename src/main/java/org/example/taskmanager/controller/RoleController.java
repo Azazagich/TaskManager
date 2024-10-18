@@ -3,6 +3,7 @@ package org.example.taskmanager.controller;
 import org.example.taskmanager.service.RoleService;
 import org.example.taskmanager.service.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,17 +39,16 @@ public class RoleController {
 
 
     @PutMapping("/{id}")
-    public boolean fullUpdateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO){
+    public RoleDTO fullUpdateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO){
         return roleService.updateAll(id, roleDTO);
+
     }
 
-
     @PatchMapping("/{id}")
-    public boolean partialUpdateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO){
+    public RoleDTO partialUpdateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO){
         return roleService.update(id, roleDTO);
     }
 
-    //TODO
     @DeleteMapping("/{id}")
     public void deleteRole(@PathVariable Long id){
         roleService.deleteById(id);
