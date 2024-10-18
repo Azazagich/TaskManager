@@ -8,11 +8,11 @@ public interface CrudService<DTO, ID extends Long> {
 
     List<DTO> getAll();
 
-    DTO save(DTO dto);
+    DTO save(DTO dto) throws Exception;
 
-    boolean updateAll(Long id, DTO dto);
+    DTO updateAll(Long id, DTO dto);
 
-    boolean update(Long id, DTO dto);
+    DTO update(Long id, DTO dto);
 
     void deleteById(ID id);
 }
