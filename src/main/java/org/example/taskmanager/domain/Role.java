@@ -39,7 +39,20 @@ public class Role {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name == null){
+            throw new IllegalArgumentException("Role name cannot be null");
+        }
+
+        name = name.toUpperCase();
+
+        if (name.equals(RoleName.ADMIN)
+                || name.equals(RoleName.ANONYMOUS)
+                || name.equals(RoleName.MANAGER)
+                || name.equals(RoleName.USER)){
+            this.name = name;
+        } else {
+            throw new IllegalArgumentException("Invalid role name: " + name);
+        }
     }
 
     @Override
