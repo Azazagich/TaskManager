@@ -1,12 +1,7 @@
 package org.example.taskmanager.service.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 public class TaskDTO implements Serializable {
@@ -24,9 +19,9 @@ public class TaskDTO implements Serializable {
 
     private UserDTO createBy;
 
-    private Set<UserDTO> performers = new HashSet<>();
+    private Set<UserDTO> performers;
 
-    private Set<TagDTO> tags = new HashSet<>();
+    private Set<TagDTO> tags;
 
     public TaskDTO(){ }
 
