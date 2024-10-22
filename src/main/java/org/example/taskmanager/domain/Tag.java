@@ -65,12 +65,12 @@ public class Tag {
     }
 
     public void setTasks(Set<Task> tasks) {
-        if (this.tasks != null){
-            tasks.forEach(task -> task.addTag(null));
-        }
-        if (tasks != null){
-            tasks.forEach(task -> task.addTag(this));
-        }
+//        if (this.tasks != null){
+//            tasks.forEach(task -> task.addTag(null));
+//        }
+//        if (tasks != null){
+//            tasks.forEach(task -> task.addTag(this));
+//        }
         this.tasks = tasks;
     }
 

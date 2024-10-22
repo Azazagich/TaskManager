@@ -27,11 +27,11 @@ public class Task {
     @Column(name = "finish_date")
     private LocalDateTime finishDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn
     private Status status;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn
     private User createBy;
 
@@ -42,7 +42,7 @@ public class Task {
         }
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE})
     @JoinTable(
             name = "users_tasks",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -57,7 +57,7 @@ public class Task {
 //        }
 //    }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "tasks_tags",
             joinColumns = @JoinColumn(name = "task_id"),
@@ -75,7 +75,7 @@ public class Task {
     }
 
     public void addStatus(Status status){
-        status.addTask(this);
+        this.status.addTask(this);
     }
 
     public Task() { }
@@ -181,12 +181,12 @@ public class Task {
     }
 
     public void setPerformers(Set<User> performers) {
-        if (this.performers != null){
-            this.performers.forEach(i -> i.setTasks(null));
-        }
-        if (performers != null){
-            performers.forEach(performer -> performer.addTask(this));
-        }
+//        if (this.performers != null){
+//            this.performers.forEach(i -> i.setTasks(null));
+//        }
+//        if (performers != null){
+//            performers.forEach(performer -> performer.addTask(this));
+//        }
         this.performers = performers;
     }
 
@@ -200,12 +200,12 @@ public class Task {
     }
 
     public void setTags(Set<Tag> tags) {
-        if (this.tags != null){
-            this.tags.forEach(tag -> tag.setTasks(null));
-        }
-        if (tags != null){
-            tags.forEach(tag -> tag.addTask(this));
-        }
+//        if (this.tags != null){
+//            this.tags.forEach(tag -> tag.setTasks(null));
+//        }
+//        if (tags != null){
+//            tags.forEach(tag -> tag.addTask(this));
+//        }
         this.tags = tags;
     }
 

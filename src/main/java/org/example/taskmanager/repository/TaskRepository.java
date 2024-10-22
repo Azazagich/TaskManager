@@ -17,8 +17,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 //    @Transactional
 //    @Query("UPDATE Task task SET task.createBy = null WHERE task.createBy.id = :id")
 //    void updateToNullTasksByCreateById(@Param("id") Long id);
-
-
+//
+//
 //    @Modifying
 //    @Transactional
 //    @Query("UPDATE Task tasks SET tasks.performers = null WHERE :user MEMBER OF tasks.performers")
