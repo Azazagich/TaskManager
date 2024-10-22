@@ -20,7 +20,6 @@ public interface TaskMapper extends MapperEntity<Task, TaskDTO>{
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL)
     void fullUpdate(TaskDTO dto, @MappingTarget Task entity);
 
-    //////////////////////////////////////////////////
 
     @Named("customTaskMapper")
     @Mapping(target = "performers", source = "performers", qualifiedByName = "userMap")
