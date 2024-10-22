@@ -1,7 +1,8 @@
 package org.example.taskmanager.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,25 +26,25 @@ public class User {
     @Column(name = "password", nullable = false, unique = true)
     private String password;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Role role;
 
-//    @PreRemove
-//    private void removeTaskAssociations() {
-//        for (Task task : this.tasks) {
-//            task.getPerformers().remove(this);
-//        }
-//    }
-
-    @ManyToMany(mappedBy = "performers", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Task> tasks;
-
-    public void addTask(Task task){
-        this.tasks.add(task);
+    @PreRemove
+    private void removeTaskAssociations() {
+        this.tasks.forEach(task -> task.getPerformers().remove(this));
     }
 
-    public User(){ }
+    @ManyToMany(mappedBy = "performers", fetch = FetchType.LAZY)
+    private Set<Task> tasks;
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    public User(){
+//        tasks = new HashSet<>();
+    }
 
     public Long getId() {
         return id;
@@ -83,19 +84,6 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-//    public Set<Task> getCreated_tasks() {
-//        return created_tasks;
-//    }
-//
-//    public User created_tasks(Set<Task> created_tasks) {
-//        this.created_tasks = created_tasks;
-//        return this;
-//    }
-//
-//    public void setCreated_tasks(Set<Task> created_tasks) {
-//        this.created_tasks = created_tasks;
-//    }
 
     public String getEmail() {
         return email;
@@ -147,12 +135,12 @@ public class User {
     }
 
     public void setTasks(Set<Task> tasks) {
-        if (this.tasks != null){
-            tasks.forEach(task -> task.setPerformers(null));
-        }
-        if (tasks != null){
-            tasks.forEach(task -> task.addPerformer(this));
-        }
+//        if (this.tasks != null){
+//            tasks.forEach(task -> task.setPerformers(null));
+//        }
+//        if (tasks != null){
+//            tasks.forEach(task -> task.addPerformer(this));
+//        }
         this.tasks = tasks;
     }
 
@@ -164,9 +152,8 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role.getName() +
-                /*", created_tasks=" + created_tasks +*/
-                ", tasks=" + tasks +
+                ", role=" + role +
+//                ", tasks=" + tasks +
                 '}';
     }
 
@@ -178,7 +165,7 @@ public class User {
         if (!(o instanceof User)){
             return false;
         }
-        return id == ((User)o).id;
+        return Objects.equals(id, ((User) o).id);
     }
 
     @Override
