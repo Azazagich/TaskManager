@@ -1,6 +1,7 @@
 package org.example.taskmanager.domain;
 
 import jakarta.persistence.*;
+
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,7 +16,15 @@ public class Tag {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @PreRemove
+    private void removeTagAssociations() {
+        for (Task task : this.tasks) {
+            task.getTags().remove(this);
+        }
+    }
+
+
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
     private Set<Task> tasks;
 
     public Tag(){ }
@@ -66,7 +75,7 @@ public class Tag {
     }
 
     public void addTask(Task task){
-        this.tasks.add(task);
+        tasks.add(task);
     }
 
 
@@ -87,7 +96,8 @@ public class Tag {
         if (!(o instanceof Tag)){
             return false;
         }
-        return id == ((Tag)o).id;    }
+        return id == ((Tag) o).id;
+    }
 
     @Override
     public int hashCode() {
