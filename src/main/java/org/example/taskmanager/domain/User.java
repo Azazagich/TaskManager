@@ -26,7 +26,7 @@ public class User {
     @Column(name = "password", nullable = false, unique = true)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn
     private Role role;
 
