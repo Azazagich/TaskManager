@@ -1,7 +1,9 @@
 package org.example.taskmanager.domain;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,15 +27,22 @@ public class Task {
     @Column(name = "finish_date")
     private LocalDateTime finishDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE})
     @JoinColumn
     private Status status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn
     private User createBy;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @PreRemove
+    private void removeUsersAssociations() {
+        for (User user : this.performers) {
+            user.getTasks().remove(this);
+        }
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE})
     @JoinTable(
             name = "users_tasks",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -41,13 +50,21 @@ public class Task {
     )
     private Set<User> performers;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @PreRemove
+//    private void removeTagsAssociations() {
+//        for (Tag tag : this.tags) {
+//            tag.getTasks().remove(this);
+//        }
+//    }
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE})
     @JoinTable(
             name = "tasks_tags",
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags;
+
 
     public void addPerformer(User user){
         performers.add(user);
@@ -57,11 +74,11 @@ public class Task {
         tags.add(tag);
     }
 
-    public void removeTag(Tag tag){
-        tags.remove(tag);
+    public void addStatus(Status status){
+        status.addTask(this);
     }
 
-    public Task() {}
+    public Task() { }
 
     public Long getId() {
         return id;
@@ -139,7 +156,6 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
-        status.addTask(this);
     }
 
     public User getCreateBy() {
@@ -185,7 +201,7 @@ public class Task {
 
     public void setTags(Set<Tag> tags) {
         if (this.tags != null){
-            this.tags.forEach(tag -> tag.addTask(null));
+            this.tags.forEach(tag -> tag.setTasks(null));
         }
         if (tags != null){
             tags.forEach(tag -> tag.addTask(this));
@@ -216,7 +232,7 @@ public class Task {
         if (!(o instanceof Task)){
             return false;
         }
-        return id == ((Task)o).id;
+        return Objects.equals(id, ((Task) o).id);
     }
 
     @Override
