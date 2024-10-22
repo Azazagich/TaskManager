@@ -15,8 +15,15 @@ public class Status {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "status", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "status", fetch = FetchType.LAZY)
     private Set<Task> tasks;
+
+    @PreRemove
+    private void removeTaskAssociations() {
+        for (Task task : this.tasks) {
+            task.setStatus(null);
+        }
+    }
 
     public Status(){ }
 
