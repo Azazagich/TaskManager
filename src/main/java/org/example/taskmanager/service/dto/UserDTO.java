@@ -1,6 +1,7 @@
 package org.example.taskmanager.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
@@ -22,7 +23,8 @@ public class UserDTO implements Serializable {
 
     private RoleDTO role;
 
-    private Set<TaskDTO> tasks = new HashSet<>();
+    @JsonIgnore
+    private Set<TaskDTO> tasks;
 
     public UserDTO(){ }
 
