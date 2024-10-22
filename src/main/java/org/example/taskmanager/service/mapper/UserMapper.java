@@ -25,18 +25,22 @@ public interface UserMapper extends MapperEntity<User, UserDTO>{
     @Mapping(target = "body", source = "body")
     @Mapping(target = "startDate", source = "startDate")
     @Mapping(target = "finishDate", source = "finishDate")
-//    @Mapping(target = "createBy", source = "createBy")
-//    @Mapping(target = "status", source = "status")
-//    @Mapping(target = "performers", source = "performers")
     TaskDTO toDtoTask(Task task);
-
 
     @Named("customTaskMapper")
     @Mapping(target = "tasks", source = "tasks", qualifiedByName = "taskDTOMap")
     UserDTO toDTO(User user);
 
+    @Named("LazyTaskMapper")
+    @Mapping(target = "tasks", source = "tasks", qualifiedByName = "taskDTOMap")
+    @Mapping(target = "role", ignore = true)
+    UserDTO toLazyDTO(User user);
 
     @Named("customTasksMapper")
-    @IterableMapping(qualifiedByName = "customTaskMapper")
+    @IterableMapping(qualifiedByName = "LazyTaskMapper")
     List<UserDTO> toDTOS(List<User> users);
+
+    ///////////////////////////////////
+
+
 }
