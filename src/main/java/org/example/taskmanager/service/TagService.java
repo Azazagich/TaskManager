@@ -40,19 +40,19 @@ public class TagService implements CrudService<TagDTO, Long>{
     }
 
     @Override
-    public boolean updateAll(Long id, TagDTO tagDTO) {
+    public TagDTO updateAll(Long id, TagDTO tagDTO) {
         Tag tag = tagRepository.findById(id).orElseThrow();
         tagMapper.fullUpdate(tagDTO, tag);
         tagRepository.save(tag);
-        return true;
+        return tagMapper.toDTO(tagRepository.findById(id).orElseThrow());
     }
 
     @Override
-    public boolean update(Long id, TagDTO tagDTO) {
+    public TagDTO update(Long id, TagDTO tagDTO) {
         Tag tag = tagRepository.findById(id).orElseThrow();
         tagMapper.partialUpdate(tagDTO, tag);
         tagRepository.save(tag);
-        return true;
+        return tagMapper.toDTO(tagRepository.findById(id).orElseThrow());
     }
 
     @Override
