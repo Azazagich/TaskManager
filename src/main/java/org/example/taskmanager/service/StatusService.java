@@ -39,19 +39,19 @@ public class StatusService implements CrudService<StatusDTO, Long>{
     }
 
     @Override
-    public boolean updateAll(Long id, StatusDTO statusDTO) {
+    public StatusDTO updateAll(Long id, StatusDTO statusDTO) {
         Status status = statusRepository.findById(id).orElseThrow();
         statusMapper.fullUpdate(statusDTO, status);
         statusRepository.save(status);
-        return true;
+        return statusMapper.toDTO(statusRepository.findById(id).orElseThrow());
     }
 
     @Override
-    public boolean update(Long id, StatusDTO statusDTO) {
+    public StatusDTO update(Long id, StatusDTO statusDTO) {
         Status status = statusRepository.findById(id).orElseThrow();
         statusMapper.partialUpdate(statusDTO, status);
         statusRepository.save(status);
-        return true;
+        return statusMapper.toDTO(statusRepository.findById(id).orElseThrow());
     }
 
     @Override
