@@ -1,7 +1,6 @@
 package org.example.taskmanager.controller;
 
 import org.example.taskmanager.service.StatusService;
-import org.example.taskmanager.service.dto.RoleDTO;
 import org.example.taskmanager.service.dto.StatusDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

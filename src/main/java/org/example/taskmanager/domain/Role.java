@@ -3,6 +3,8 @@ package org.example.taskmanager.domain;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "role")
 public class Role {
@@ -71,7 +73,7 @@ public class Role {
         if (!(o instanceof Role)){
             return false;
         }
-        return id == ((Role)o).id;
+        return Objects.equals(id, ((Role) o).id);
     }
 
     @Override
