@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2" author="Azazagich">
+        <preConditions>
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true"/>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="email" type="varchar(50)"/>
+            <column name="password" type="varchar(50)"/>
+            <column name="role_id" type="bigint"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" tableName="users"/>
+        <addUniqueConstraint columnNames="email" tableName="users"/>
+        <addNotNullConstraint columnName="email" tableName="users"/>
+        <addUniqueConstraint columnNames="password" tableName="users"/>
+        <addNotNullConstraint columnName="password" tableName="users"/>
+        <addForeignKeyConstraint
+                baseColumnNames="role_id"
+                baseTableName="users"
+                constraintName="fk_user_role"
+                referencedColumnNames="id"
+                referencedTableName="role"/>
+    </changeSet>
+
+    <changeSet id="2::dataForTable" author="Azazagich">
+        <loadData tableName="users" file="data/test-user.csv"/>
+    </changeSet>
+</databaseChangeLog>
