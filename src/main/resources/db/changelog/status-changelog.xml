@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+<changeSet id="3" author="Azazagich">
+        <preConditions>
+            <not>
+                <tableExists tableName="status"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="status">
+            <column name="id" type="bigint" autoIncrement="true"/>
+            <column name="name" type="varchar"/>
+        </createTable>
+
+        <addPrimaryKey columnNames="id" tableName="status"/>
+        <addUniqueConstraint columnNames="name" tableName="status"/>
+    </changeSet>
+
+    <changeSet id="3::dataForTable" author="Azazagich">
+        <loadData file="data/test-status.csv" tableName="status"/>
+    </changeSet>
+</databaseChangeLog>
