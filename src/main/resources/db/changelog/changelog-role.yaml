@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Azazagich
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: role
+      changes:
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 2
+      author: Azazagich
+      changes:
+  - changeSet:
+      id: 2
+      author: Azazagich
+      changes:
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: "USER"
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: "MANAGER"
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: "ADMIN"
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: "ANONYMOUS"

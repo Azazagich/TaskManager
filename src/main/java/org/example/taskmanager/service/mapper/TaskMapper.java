@@ -1,15 +1,10 @@
 package org.example.taskmanager.service.mapper;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.example.taskmanager.domain.*;
 import org.example.taskmanager.service.dto.*;
 import org.mapstruct.*;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface TaskMapper extends MapperEntity<Task, TaskDTO>{
