@@ -4,8 +4,8 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="4" author="Azazagich">
-        <preConditions>
+    <changeSet id="24" author="Azazagich">
+        <preConditions onFail="HALT">
             <not>
                 <tableExists tableName="tag"/>
             </not>
@@ -20,7 +20,7 @@
         <addUniqueConstraint columnNames="name" tableName="tag" />
     </changeSet>
 
-    <changeSet id="4::dataForTable" author="Azazagich">
+    <changeSet id="24::dataForTable" author="Azazagich">
         <loadData tableName="tag" file="data/test-tag.csv"/>
     </changeSet>
 </databaseChangeLog>

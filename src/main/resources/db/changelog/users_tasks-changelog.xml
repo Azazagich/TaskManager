@@ -4,8 +4,8 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="10" author="Azazagich">
-        <preConditions>
+    <changeSet id="30" author="Azazagich">
+        <preConditions onFail="HALT">
             <not>
                 <tableExists tableName="users_tasks"/>
             </not>
@@ -31,7 +31,7 @@
                 referencedColumnNames="id"/>
     </changeSet>
 
-    <changeSet id="10::dataForTable" author="Azazagich">
+    <changeSet id="30::dataForTable" author="Azazagich">
         <loadData tableName="users_tasks" file="data/test-users_tasks.csv"/>
     </changeSet>
 </databaseChangeLog>
