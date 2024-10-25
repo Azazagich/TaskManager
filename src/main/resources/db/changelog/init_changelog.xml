@@ -1,0 +1,105 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Azazagich (generated)" id="1729847227330-1">
+        <createTable tableName="status">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="status_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-2">
+        <createTable tableName="tag">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tag_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-3">
+        <createTable tableName="task">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="task_pkey"/>
+            </column>
+            <column name="title" type="VARCHAR"/>
+            <column name="body" type="VARCHAR"/>
+            <column name="start_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="finish_date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="create_by_id" type="BIGINT"/>
+            <column name="status_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-4">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="email" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-5">
+        <addUniqueConstraint columnNames="name" constraintName="status_name_key" tableName="status"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-6">
+        <addUniqueConstraint columnNames="name" constraintName="tag_name_key" tableName="tag"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-7">
+        <addUniqueConstraint columnNames="id" constraintName="task_id_key" tableName="task"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-8">
+        <addUniqueConstraint columnNames="email" constraintName="users_email_key" tableName="users"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-9">
+        <addUniqueConstraint columnNames="password" constraintName="users_password_key" tableName="users"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-10">
+        <createTable tableName="role">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="role_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR"/>
+            <column name="updatexample" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-11">
+        <createTable tableName="tasks_tags">
+            <column name="tag_id" type="BIGINT"/>
+            <column name="task_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-12">
+        <createTable tableName="users_tasks">
+            <column name="user_id" type="BIGINT"/>
+            <column name="task_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-13">
+        <addForeignKeyConstraint baseColumnNames="tag_id" baseTableName="tasks_tags" constraintName="fk_tag_task" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tag" validate="true"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-14">
+        <addForeignKeyConstraint baseColumnNames="create_by_id" baseTableName="task" constraintName="fk_task_create_by" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-15">
+        <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="task" constraintName="fk_task_statuses" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="status" validate="true"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-16">
+        <addForeignKeyConstraint baseColumnNames="task_id" baseTableName="tasks_tags" constraintName="fk_task_tag" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="task" validate="true"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-17">
+        <addForeignKeyConstraint baseColumnNames="task_id" baseTableName="users_tasks" constraintName="fk_task_user" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="task" validate="true"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-18">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="users" constraintName="fk_user_role" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="role" validate="true"/>
+    </changeSet>
+    <changeSet author="Azazagich (generated)" id="1729847227330-19">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_tasks" constraintName="fk_user_task" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
