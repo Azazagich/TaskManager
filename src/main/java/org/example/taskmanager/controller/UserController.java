@@ -1,5 +1,6 @@
 package org.example.taskmanager.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.taskmanager.service.UserService;
 import org.example.taskmanager.service.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Users")
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {

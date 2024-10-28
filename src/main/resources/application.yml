@@ -37,6 +37,10 @@ spring:
       hibernate.connection.password: 0258
 #      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 
+springdoc:
+  api-docs:
+    path: /api-docs
+
 
 #  jpa:
 #    hibernate:
