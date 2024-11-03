@@ -1,14 +1,15 @@
 package org.example.taskmanager.domain;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +21,10 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true, length = 225)
     private String email;
 
-    @Column(name = "password", nullable = false, unique = true)
+    @Column(name = "password", nullable = false, unique = true,  length = 225)
     private String password;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
@@ -42,9 +43,7 @@ public class User {
         tasks.add(task);
     }
 
-    public User(){
-//        tasks = new HashSet<>();
-    }
+    public User(){ }
 
     public Long getId() {
         return id;
@@ -98,6 +97,7 @@ public class User {
         this.email = email;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -144,6 +144,41 @@ public class User {
         this.tasks = tasks;
     }
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return getEmail();
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -153,7 +188,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-//                ", tasks=" + tasks +
                 '}';
     }
 
