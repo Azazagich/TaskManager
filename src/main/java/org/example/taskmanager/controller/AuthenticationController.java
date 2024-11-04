@@ -1,6 +1,11 @@
-package org.example.taskmanager.defaultSecurity;
+package org.example.taskmanager.controller;
 
+import org.example.taskmanager.service.AuthenticationService;
+import org.example.taskmanager.security.JwtService;
+import org.example.taskmanager.security.LoginResponse;
 import org.example.taskmanager.domain.User;
+import org.example.taskmanager.service.dto.LoginUserDto;
+import org.example.taskmanager.service.dto.RegisterUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,18 +29,14 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody RegisterUserDTO registerUserDto) {
         User registeredUser = authenticationService.signup(registerUserDto);
-
         return ResponseEntity.ok(registeredUser);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponce> authenticate(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
-
         String jwtToken = jwtService.generateToken(authenticatedUser);
-
-        LoginResponce loginResponse = new LoginResponce().token(jwtToken).expiresIn(jwtService.getExpirationTime());
-
+        LoginResponse loginResponse = new LoginResponse().token(jwtToken).expiresIn(jwtService.getExpirationTime());
         return ResponseEntity.ok(loginResponse);
     }
 }
