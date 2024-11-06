@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.taskmanager.service.TaskService;
 import org.example.taskmanager.service.dto.TaskDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,38 +22,44 @@ public class TaskController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('USER')")
     @GetMapping("/{id}")
-    public TaskDTO getRole(@PathVariable Long id){
+    public TaskDTO getTask(@PathVariable Long id){
         return taskService.getById(id);
     }
 
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('USER')")
     @GetMapping
-    public List<TaskDTO> getAllRoles(){
+    public List<TaskDTO> getAllTasks(){
         return taskService.getAll();
     }
 
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     @PostMapping
-    public TaskDTO saveRole(@RequestBody TaskDTO taskDTO){
+    public TaskDTO saveTask(@RequestBody TaskDTO taskDTO){
         return taskService.save(taskDTO);
     }
 
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     @PutMapping("/{id}")
-    public TaskDTO fullUpdateRole(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
+    public TaskDTO fullUpdateTask(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
         return taskService.updateAll(id, taskDTO);
     }
 
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     @PatchMapping("/{id}")
-    public TaskDTO partialUpdateRole(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
+    public TaskDTO partialUpdateTask(@PathVariable Long id, @RequestBody TaskDTO taskDTO){
         return taskService.update(id, taskDTO);
     }
 
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     @DeleteMapping("/{id}")
-    public void deleteRole(@PathVariable Long id){
+    public void deleteTask(@PathVariable Long id){
         taskService.deleteById(id);
     }
 }
