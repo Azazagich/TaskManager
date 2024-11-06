@@ -3,7 +3,10 @@ package org.example.taskmanager.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,6 +24,7 @@ import java.util.List;
 
 
 //TODO (+розібратися з ролями та ностроїти їх якось нормально)
+@EnableMethodSecurity
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -52,6 +56,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/auth/**", "/swagger-ui/**", "/swagger-resources/*",
                             "/v3/api-docs/**").permitAll();
+
+//                    auth.requestMatchers(HttpMethod.GET, HttpMethod.POST, "/tags/**", "/statuses");
+
                     auth.anyRequest().authenticated();
                         })
                 .authenticationProvider(authenticationProvider)
