@@ -3,9 +3,9 @@ spring:
     name: TaskManager
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/TaskManager
-    username: postgres
-    password: 0258
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   liquibase:
@@ -13,7 +13,7 @@ spring:
     enabled: true
 
   jpa:
-    open-in-view: false
+    open-in-view: true
     properties:
       hibernate.jdbc.time_zone: UTC
       hibernate.id.new_generator_mappings: true
@@ -31,10 +31,11 @@ spring:
       hibernate.query.in_clause_parameter_padding: true
       hibernate.cache.use_minimal_puts: true
 
-      hibernate.connection.url: jdbc:postgresql://localhost:5432/TaskManager
-      hibernate.connection.driver_class: org.postgresql.Driver
-      hibernate.connection.username: postgres
-      hibernate.connection.password: 0258
+
+#      hibernate.connection.url:
+#      hibernate.connection.driver_class: org.postgresql.Driver
+#      hibernate.connection.username:
+#      hibernate.connection.password:
 #      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 
 springdoc:
@@ -43,8 +44,14 @@ springdoc:
 
 security:
   jwt:
-    secret-key: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
-    expiration-time: 3600000
+    secret-key: ${SECRET_KEY}
+    expiration-time: ${EXPIRATION_TIME}
+
+logging:
+  level:
+    root: "DEBUG"
+    org.springframework: "TRACE"
+    org.hibernate: "TRACE"
 
 
 #  jpa:
@@ -56,8 +63,4 @@ security:
 #        format_sql: true
 
 
-#  logging:
-#    level:
-#      hibernate": debug
-#      root: info
-#      web: info
+
