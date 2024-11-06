@@ -1,0 +1,56 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="Load data for role" author="Azazagich">
+        <loadData tableName="role" file="data/test-role.csv">
+            <column name="name" header="name" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="Load data for status" author="Azazagich">
+        <loadData tableName="status" file="data/test-status.csv">
+            <column name="name" header="name" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="Load data for tag" author="Azazagich">
+        <loadData tableName="tag" file="data/test-tag.csv">
+            <column name="name" header="name" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="Load data for task" author="Azazagich">
+        <loadData tableName="task" file="data/test-task.csv">
+            <column name="title" header="title" />
+            <column name="start_date" header="start_date" />
+            <column name="finish_date" header="finish_date" />
+            <column name="status_id" header="status_id" />
+            <column name="create_by_id" header="create_by_id" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="Load data for task_tags" author="Azazagich">
+        <loadData tableName="tasks_tags" file="data/test-tasks_tags.csv">
+            <column name="tag_id" header="tag_id" />
+            <column name="task_id" header="task_id" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="Load data for user" author="Azazagich">
+        <loadData tableName="users" file="data/test-user.csv">
+            <column name="first_name" header="first_name" />
+            <column name="last_name" header="last_name" />
+            <column name="email" header="email" />
+            <column name="password" header="password" />
+            <column name="role_id" header="role_id" />
+        </loadData>
+    </changeSet>
+
+    <changeSet id="Load data for users_tasks" author="Azazagich">
+        <loadData tableName="users_tasks" file="data/test-users_tasks.csv">
+            <column name="task_id" header="task_id" />
+            <column name="user_id" header="user_id" />
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>
