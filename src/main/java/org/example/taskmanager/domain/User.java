@@ -27,7 +27,7 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn
     private Role role;
 
@@ -147,38 +147,25 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role == null
-                ? List.of(new SimpleGrantedAuthority(RoleName.USER))
-                : List.of(new SimpleGrantedAuthority(role.getName()));
+
+        String roleName = (role != null && role.getName() != null) ? role.getName() : RoleName.USER;
+
+        return List.of(new SimpleGrantedAuthority("ROLE_" +roleName));
+
+        //        if (role == null || Objects.equals(role.getName(), RoleName.USER)){
+//            return List.of(new SimpleGrantedAuthority(RoleName.USER));
+//        } else if (Objects.equals(role.getName(), RoleName.MANAGER)){
+//            return List.of(new SimpleGrantedAuthority(RoleName.MANAGER));
+//        } else if (Objects.equals(role.getName(), RoleName.ADMIN)){
+//            return List.of(new SimpleGrantedAuthority(RoleName.ADMIN));
+//        }
+//        return List.of(new SimpleGrantedAuthority(RoleName.ANONYMOUS));
     }
 
     @Override
     public String getUsername() {
         return getEmail();
     }
-
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-
 
 
     @Override

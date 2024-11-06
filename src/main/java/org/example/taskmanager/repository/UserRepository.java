@@ -17,6 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //    @Query("select u from User u left join u.tasks where u.id = :id")
 //    Optional<User> findOne(@Param("id") Long id);
 
+
     @Transactional
     Optional<User> findByEmail(String email);
 
