@@ -6,6 +6,8 @@ import org.example.taskmanager.repository.TaskRepository;
 import org.example.taskmanager.repository.UserRepository;
 import org.example.taskmanager.service.dto.TaskDTO;
 import org.example.taskmanager.service.mapper.TaskMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import java.util.List;
 @Service
 @Transactional
 public class TaskService implements CrudService<TaskDTO, Long>{
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(TaskService.class);
 
     private final UserService userService;
 

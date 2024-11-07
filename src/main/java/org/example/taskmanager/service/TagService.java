@@ -4,6 +4,8 @@ import org.example.taskmanager.domain.Tag;
 import org.example.taskmanager.repository.TagRepository;
 import org.example.taskmanager.service.dto.TagDTO;
 import org.example.taskmanager.service.mapper.TagMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,8 @@ import java.util.List;
 @Service
 @Transactional
 public class TagService implements CrudService<TagDTO, Long>{
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(TagService.class);
 
     private final TagRepository tagRepository;
 

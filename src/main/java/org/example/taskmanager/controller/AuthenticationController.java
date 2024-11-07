@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RequestMapping("/auth")
 @RestController
 public class AuthenticationController {
+    private final static Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
+
     private final JwtService jwtService;
 
     private final AuthenticationService authenticationService;
@@ -26,11 +30,13 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
+
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody RegisterUserDTO registerUserDto) {
         User registeredUser = authenticationService.signup(registerUserDto);
         return ResponseEntity.ok(registeredUser);
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {

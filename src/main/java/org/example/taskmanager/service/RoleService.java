@@ -6,6 +6,8 @@ import org.example.taskmanager.repository.RoleRepository;
 import org.example.taskmanager.repository.UserRepository;
 import org.example.taskmanager.service.dto.RoleDTO;
 import org.example.taskmanager.service.mapper.RoleMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.List;
 @Service
 @Transactional
 public class RoleService implements CrudService<RoleDTO, Long>{
+    private final static Logger LOGGER = LoggerFactory.getLogger(RoleService.class);
 
     private final RoleRepository roleRepository;
 

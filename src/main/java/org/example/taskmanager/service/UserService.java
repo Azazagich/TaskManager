@@ -17,7 +17,9 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserService implements CrudService<UserDTO, Long>{
+public class UserService implements CrudService<UserDTO, Long> {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
 
@@ -27,7 +29,6 @@ public class UserService implements CrudService<UserDTO, Long>{
 
     private final TaskRepository taskRepository;
 
-    final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     public UserService(UserRepository userRepository, RoleService roleService, TaskRepository taskRepository, UserMapper userMapper){

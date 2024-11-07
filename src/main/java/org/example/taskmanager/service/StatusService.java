@@ -4,6 +4,8 @@ import org.example.taskmanager.domain.Status;
 import org.example.taskmanager.repository.StatusRepository;
 import org.example.taskmanager.service.dto.StatusDTO;
 import org.example.taskmanager.service.mapper.StatusMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,8 @@ import java.util.List;
 @Service
 @Transactional
 public class StatusService implements CrudService<StatusDTO, Long>{
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(StatusService.class);
 
     private final StatusRepository statusRepository;
 
