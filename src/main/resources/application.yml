@@ -31,13 +31,6 @@ spring:
       hibernate.query.in_clause_parameter_padding: true
       hibernate.cache.use_minimal_puts: true
 
-
-#      hibernate.connection.url:
-#      hibernate.connection.driver_class: org.postgresql.Driver
-#      hibernate.connection.username:
-#      hibernate.connection.password:
-#      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-
 springdoc:
   api-docs:
     path: /api-docs
@@ -52,15 +45,3 @@ logging:
     root: "DEBUG"
     org.springframework: "TRACE"
     org.hibernate: "TRACE"
-
-
-#  jpa:
-#    hibernate:
-#      ddl-auto: none
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
-
-
-
