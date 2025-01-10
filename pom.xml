@@ -20,16 +20,15 @@
 		<liquibase-hibernate6.version>4.23.1</liquibase-hibernate6.version>
 		<validation-api.version>2.0.1.Final</validation-api.version>
 		<spring-data.version>3.3.3</spring-data.version>
+		<mapstruct.version>1.6.0</mapstruct.version>
 <!--		-->
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 	</properties>
 	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-logging -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-logging</artifactId>
-			<version>3.3.0</version>
 		</dependency>
 
 		<dependency>
@@ -62,10 +61,10 @@
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
-			<version>1.6.0</version>
+			<version>${mapstruct.version}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
+		
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
